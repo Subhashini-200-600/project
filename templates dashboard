@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<h1>AI-Powered Retail Intelligence & Smart Inventory Management System</h1>
+
+<h2>Welcome {{ username }}</h2>
+
+<hr>
+
+<a href="/products">
+    <button>Products</button>
+</a>
+
+<a href="/sales">
+    <button>Sales</button>
+</a>
+
+<a href="/logout">
+    <button>Logout</button>
+</a>
+
+<hr>
+
+<h3>Dashboard</h3>
+
+<div class="card">
+    <p><b>Total Products:</b> {{ total_products }}</p>
+</div>
+
+<div class="card">
+    <p><b>Available Stock:</b> {{ available_stock }}</p>
+</div>
+
+<div class="card">
+    <p><b>Today's Sales:</b> {{ today_sales }}</p>
+</div>
+
+<div class="card">
+    <p><b>Low Stock Products:</b> {{ low_stock }}</p>
+</div>
+
+<div class="ai-box">
+    <h3>AI Recommendations</h3>
+    <p>{{ ai_message }}</p>
+</div>
+
+<hr>
+
+<h3>Inventory Analytics</h3>
+
+<canvas id="stockChart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('stockChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Products', 'Available Stock', 'Low Stock'],
+        datasets: [{
+            label: 'Inventory Summary',
+            data: [
+                {{ total_products }},
+                {{ available_stock }},
+                {{ low_stock }}
+            ]
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+</script>
+
+</body>
+</html>
